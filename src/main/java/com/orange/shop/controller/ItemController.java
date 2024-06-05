@@ -10,10 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class ItemController {
@@ -45,6 +46,24 @@ public class ItemController {
     @GetMapping("/write")
     public String write() {
         return "write.html";
+    }
+
+    @PostMapping("/add")
+    public String add(@RequestParam Map formData) {
+        Item item = new Item();
+
+        Object titleObj = formData.get("title");
+        if(titleObj != null)
+            item.setTitle(titleObj.toString());
+
+        Object priceObj = formData.get("price");
+        if(priceObj != null) {
+            Integer price = Integer.parseInt(priceObj.toString());
+            item.setPrice(price);
+        }
+        itemRepository.save(item);
+
+        return "redirect:/list";
     }
 
     @GetMapping("/user")
