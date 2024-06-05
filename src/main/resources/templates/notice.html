@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/main.css">
+    <title>할인정보</title>
+</head>
+<body>
+<div>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>번호</td>
+            <td>제목</td>
+            <td>날짜</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="notice:${notices}">
+            <td th:text="${notice.id}">1</td>
+            <td th:text="${notice.title}">이벤트제목</td>
+            <td th:text="${notice.createDt}">2024-06-05</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
