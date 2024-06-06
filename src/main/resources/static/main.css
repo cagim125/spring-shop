@@ -1,10 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap');
+
 .card{
     margin: 30px auto;
     display: flex;
 }
+.card a {
+    display: flex;
+    text-decoration: none;
+    color: #04AA6D;
+}
 .card img {
     width: 150px;
     margin-right: 20px;
+}
+.nav {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    font-family : 'Montserrat';
+}
+.nav a {
+    margin-right: 10px;
+    text-decoration : none;
+    font-weight : 400;
+    letter-spacing : -0.5px;
+}
+.nav .logo {
+    font-weight : 800;
 }
 
 .table {
@@ -28,3 +50,58 @@
     color: white;
 }
 
+#title, #price {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+#submit {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+#submit:hover {
+    background-color: #45a049;
+}
+
+.formWrap {
+    width: 500px;
+    border-radius: 4px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.detail {
+    text-align : center;
+}
+.detail img{
+    max-width : 30%;
+    display : block;
+    margin : auto;
+}
+.back{
+    text-decoration: none;
+    color: darkgray;
+    font-size: 24px;
+    font-family: "Comic Sans MS";
+
+}
+
+.message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Comic Sans MS";
+    font-size: 56px;
+    font-weight: bold;
+    color: gainsboro;
+}

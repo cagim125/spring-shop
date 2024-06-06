@@ -7,12 +7,11 @@ import com.orange.shop.repository.ItemRepository;
 import com.orange.shop.repository.NoticeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -30,7 +29,7 @@ public class ItemController {
 
     @GetMapping("/list")
     public String list(Model model) {
-        List<Item> result =  itemRepository.findAll();
+        List<Item> result = itemRepository.findAll();
         model.addAttribute("items", result);
 
         return "list.html";
@@ -49,18 +48,10 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public String add(@RequestParam Map formData) {
+    public String add(String title, Integer price) {
         Item item = new Item();
-
-        Object titleObj = formData.get("title");
-        if(titleObj != null)
-            item.setTitle(titleObj.toString());
-
-        Object priceObj = formData.get("price");
-        if(priceObj != null) {
-            Integer price = Integer.parseInt(priceObj.toString());
-            item.setPrice(price);
-        }
+        item.setTitle(title);
+        item.setPrice(price);
         itemRepository.save(item);
 
         return "redirect:/list";
@@ -77,5 +68,17 @@ public class ItemController {
         object.한살더하기();
         System.out.println(object.getAge());
         return object.getName();
+    }
+
+    @GetMapping("/detail/{id}")
+    public String detail(@PathVariable Long id, Model model) {
+        Optional<Item> result = itemRepository.findById(id);
+        if (result.isPresent()) {
+            model.addAttribute("item", result.get());
+        } else {
+            return "redirect:/list";
+        }
+
+        return "detail.html";
     }
 }
