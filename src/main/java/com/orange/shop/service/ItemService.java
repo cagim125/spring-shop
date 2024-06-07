@@ -18,8 +18,12 @@ public class ItemService {
     public List<Item> findAll() {
         return itemRepository.findAll();
     }
-    public Optional<Item> findById(Long id) {
-        return itemRepository.findById(id);
+    public Optional<Item> findById(Long id) {return itemRepository.findById(id);}
+
+
+    public void update(Long id, String title, Integer price){
+        Item item = new Item(id, title, price);
+        itemRepository.save(item);
     }
 
     public void saveItem(String title, Integer price) {

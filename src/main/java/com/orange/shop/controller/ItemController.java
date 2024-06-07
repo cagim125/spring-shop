@@ -3,6 +3,7 @@ package com.orange.shop.controller;
 import com.orange.shop.entity.Item;
 import com.orange.shop.entity.Notice;
 import com.orange.shop.entity.User;
+import com.orange.shop.exception.TitleTooLongException;
 import com.orange.shop.repository.ItemRepository;
 import com.orange.shop.repository.NoticeRepository;
 import com.orange.shop.service.ItemService;
@@ -19,14 +20,10 @@ import java.util.*;
 @Controller
 public class ItemController {
 
-    private final ItemRepository itemRepository;
-    private final NoticeRepository noticeRepository;
     private final ItemService itemService;
 
     @Autowired
-    public ItemController(ItemService itemService ,ItemRepository itemRepository, NoticeRepository noticeRepository) {
-        this.itemRepository = itemRepository;
-        this.noticeRepository = noticeRepository;
+    public ItemController(ItemService itemService) {
         this.itemService = itemService;
     }
 
@@ -41,6 +38,31 @@ public class ItemController {
     @GetMapping("/write")
     public String write() {
         return "write.html";
+    }
+
+    @GetMapping("/update/{id}")
+    public String update(@PathVariable Long id, Model model) {
+        Optional<Item> result = itemService.findById(id);
+        if (result.isPresent()) {
+            model.addAttribute("item", result.get());
+            return "modify.html";
+        }
+        return "redirect:/list";
+    }
+
+    @PostMapping("/update/{id}")
+    public String update(@PathVariable Long id, String title, Integer price) {
+        if (title.trim().length() >= 100) {
+            throw new TitleTooLongException("제목은 100자 이하로 설정해 주세요.");
+        }
+        if (price < 0) {
+            throw new NegativeArraySizeException("가격은 음수로 설정 할 수 없어요.");
+        }
+
+
+        itemService.update(id, title, price);
+
+        return "redirect:/list";
     }
 
     @GetMapping("/detail/{id}")
@@ -62,15 +84,12 @@ public class ItemController {
     }
 
 
-    @GetMapping("/notice")
-    public String notice(Model model) {
-        List<Notice> result = noticeRepository.findAll();
-        model.addAttribute("notices", result);
-        return "notice.html";
-    }
-
-
-
+//    @GetMapping("/notice")
+//    public String notice(Model model) {
+//        List<Notice> result = noticeRepository.findAll();
+//        model.addAttribute("notices", result);
+//        return "notice.html";
+//    }
 
 
 //    @GetMapping("/user")
@@ -85,7 +104,6 @@ public class ItemController {
 //        System.out.println(object.getAge());
 //        return object.getName();
 //    }
-
 
 
 }

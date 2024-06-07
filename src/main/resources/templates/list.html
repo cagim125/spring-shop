@@ -7,6 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/main.css">
     <title>상품 리스트</title>
+    <script>
+        document.querySelectorAll(".btn")[0].addEventListener('click',function(){
+            fetch('/list', {
+                method: "DELETE"
+            })
+        })
+    </script>
 </head>
 <body>
 
@@ -19,6 +26,8 @@
             <p th:text="${item.price + '원'}">8000원</p>
         </div>
     </a>
+    <a th:href="@{ '/update/' + ${item.id} }">✏️</a>
+    <button class=".btn" >삭제😿</button>
 </div>
 </body>
 </html>

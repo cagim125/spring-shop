@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -14,6 +15,20 @@ public class GlobalExceptionHandler {
 //    public ResponseEntity<String> handler() {
 //        return ResponseEntity.status(400).body("에러");
 //    }
+
+    @ExceptionHandler(TitleTooLongException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleTitleTooLongException(TitleTooLongException ex, Model model) {
+        model.addAttribute("error", ex.getMessage());
+        return "error";
+    }
+
+    @ExceptionHandler(NegativePriceException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleNegativePriceException(NegativePriceException ex, Model model) {
+        model.addAttribute("error", ex.getMessage());
+        return "error";
+    }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ModelAndView handleTypeMismatchException(MethodArgumentTypeMismatchException ex, Model model) {
