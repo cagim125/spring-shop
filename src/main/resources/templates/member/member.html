@@ -9,16 +9,12 @@
 <body>
     <div class="member-container">
         <div class="member show">
-            <label for="id"></label>
-            <input id="id" name="id" placeholder="아이디 입력하세요." />
+            <label for="username"></label>
+            <input id="username" name="username" placeholder="아이디 입력하세요." />
         </div>
         <div class="member">
-            <label for="pw"></label>
-            <input id="pw" name="pw" placeholder="비밀번호 입력하세요." />
-        </div>
-        <div class="member">
-            <label for="name"></label>
-            <input id="name" name="name" placeholder="이름 입력하세요." />
+            <label for="password"></label>
+            <input type="password" id="password" name="password" placeholder="비밀번호 입력하세요." />
         </div>
         <div class="member">
             <button id="join">회원가입</button>
@@ -41,9 +37,9 @@
 
         function save() {
             let data = {
-                userid : document.querySelector('#id').value,
-                userPw : document.querySelector('#pw').value,
-                username : document.querySelector('#name').value
+                username : document.querySelector('#username').value,
+                password : document.querySelector('#password').value
+
             }
 
             // console.log(data);

@@ -9,10 +9,9 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long no;
+    private Long id;
 
     @Column(unique = true)
-    private String id;
-    private String pw;
-    private String name;
+    private String displayName;
+    private String password;
 }

@@ -20,11 +20,10 @@ public class MemberService {
 
 
     public void insertMember(Map<String, Object> item) {
-        String hashPw = passwordEncoder.encode((String) item.get("userPw"));
+        String hashPw = passwordEncoder.encode((String) item.get("password"));
         Member member = new Member();
-        member.setId(item.get("userid").toString());
-        member.setPw(hashPw);
-        member.setName(item.get("username").toString());
+        member.setDisplayName(item.get("username").toString());
+        member.setPassword(hashPw);
 
         var result = memberRepository.save(member);
         System.out.println(result);

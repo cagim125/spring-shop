@@ -10,21 +10,21 @@
 </head>
 <body>
 <div>
+    <div th:replace="~{ nav.html::navbar }"></div>
     <table class="table">
         <thead>
         <tr>
             <td>번호</td>
             <td>아이디</td>
             <td>패스워드</td>
-            <td>이름</td>
+
         </tr>
         </thead>
         <tbody>
         <tr th:each="member:${members}">
-            <td th:text="${member.no}">1</td>
-            <td th:text="${member.id}">이벤트제목</td>
-            <td th:text="${member.pw}">2024-06-05</td>
-            <td th:text="${member.name}">2024-06-05</td>
+            <td th:text="${member.id}">1</td>
+            <td th:text="${member.displayName}">이벤트제목</td>
+            <td th:text="${member.password}">2024-06-05</td>
         </tr>
         </tbody>
     </table>
