@@ -21,10 +21,12 @@ import java.util.*;
 public class ItemController {
 
     private final ItemService itemService;
+    private final NoticeRepository noticeRepository;
 
     @Autowired
-    public ItemController(ItemService itemService) {
+    public ItemController(ItemService itemService, NoticeRepository noticeRepository) {
         this.itemService = itemService;
+        this.noticeRepository = noticeRepository;
     }
 
     @GetMapping("/list")
@@ -83,13 +85,21 @@ public class ItemController {
         return "redirect:/list";
     }
 
+    @DeleteMapping("/item")
+    public ResponseEntity<String> delete(@RequestParam Long id) {
+        itemService.deleteItem(id);
 
-//    @GetMapping("/notice")
-//    public String notice(Model model) {
-//        List<Notice> result = noticeRepository.findAll();
-//        model.addAttribute("notices", result);
-//        return "notice.html";
-//    }
+        return ResponseEntity.status(200).body("삭제완료");
+    }
+
+
+
+    @GetMapping("/notice")
+    public String notice(Model model) {
+        List<Notice> result = noticeRepository.findAll();
+        model.addAttribute("notices", result);
+        return "notice.html";
+    }
 
 
 //    @GetMapping("/user")

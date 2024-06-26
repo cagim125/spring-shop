@@ -1,10 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/main.css">
+    <title>UserList</title>
 </head>
 <body>
-$END$
+<div>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>번호</td>
+            <td>아이디</td>
+            <td>패스워드</td>
+            <td>이름</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="member:${members}">
+            <td th:text="${member.no}">1</td>
+            <td th:text="${member.id}">이벤트제목</td>
+            <td th:text="${member.pw}">2024-06-05</td>
+            <td th:text="${member.name}">2024-06-05</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

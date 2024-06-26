@@ -7,27 +7,29 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/main.css">
     <title>상품 리스트</title>
-    <script>
-        document.querySelectorAll(".btn")[0].addEventListener('click',function(){
-            fetch('/list', {
-                method: "DELETE"
-            })
-        })
-    </script>
 </head>
 <body>
 
 <div th:replace="~{ nav.html::navbar }"></div>
-<div class="card" th:each="item, itemStat:${items}">
-    <a th:href="@{/detail/{id}(id=${item.id})}">
-        <img src="https://placehold.co/150"/>
-        <div>
-            <h4 th:text="${item.title}">바지</h4>
-            <p th:text="${item.price + '원'}">8000원</p>
-        </div>
-    </a>
-    <a th:href="@{ '/update/' + ${item.id} }">✏️</a>
-    <button class=".btn" >삭제😿</button>
+<div class="container">
+    <div class="card" th:each="item, itemStat:${items}">
+        <a th:href="@{/detail/{id}(id=${item.id})}">
+            <img src="https://placehold.co/350"/>
+            <div>
+                <h4 th:text="${item.title}">바지</h4>
+                <p th:text="${item.price + '원'}">8000원</p>
+            </div>
+        </a>
+        <a th:href="@{ '/update/' + ${item.id} }">✏️</a>
+        <span th:onclick="fetch('/item?id=[[${item.id}]]', { method : 'DELETE' } )
+            .then(r => r.text())
+            .then(result => {
+                console.log(result);
+<!--                location.reload();-->
+             })
+        ">🗑️</span>
+    </div>
 </div>
+
 </body>
 </html>

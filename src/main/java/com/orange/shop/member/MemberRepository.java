@@ -1,2 +1,6 @@
-package com.orange.shop.member;public interface MemberRepository {
+package com.orange.shop.member;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MemberRepository extends JpaRepository<Member, Long> {
 }

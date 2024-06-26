@@ -1,29 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap');
-
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
 .card{
     margin: 30px auto;
-    display: flex;
 }
 .card a {
-    display: flex;
     text-decoration: none;
-    color: #04AA6D;
+    color: dimgrey;
 }
 .card img {
-    width: 150px;
     margin-right: 20px;
 }
 .nav {
     display: flex;
     padding: 10px;
     align-items: center;
+    color: #4CAF50;
     font-family : 'Montserrat';
 }
-.nav a {
+.nav>a {
     margin-right: 10px;
     text-decoration : none;
     font-weight : 400;
     letter-spacing : -0.5px;
+    color: #04AA6D;
 }
 .nav .logo {
     font-weight : 800;
@@ -104,4 +108,40 @@
     font-size: 56px;
     font-weight: bold;
     color: gainsboro;
+}
+
+.member-container{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+}
+.member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 16px 0;
+    visibility: hidden;
+}
+
+.member input {
+    width: 550px;
+    padding: 20px;
+    border-radius: 5px;
+    border: none;
+    border-bottom: 1px solid #45a049;
+    font-size: 26px;
+}
+
+.member input:focus {
+    outline: none;
+}
+
+#join {
+    width: 550px;
+    padding: 10px;
+    background: #45a049;
+}
+
+.show {
+    visibility: visible;
 }

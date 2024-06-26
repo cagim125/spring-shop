@@ -1,10 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Member</title>
+    <link rel="stylesheet" href="main.css">
+
 </head>
 <body>
-$END$
+    <div class="member-container">
+        <div class="member show">
+            <label for="id"></label>
+            <input id="id" name="id" placeholder="아이디 입력하세요." />
+        </div>
+        <div class="member">
+            <label for="pw"></label>
+            <input id="pw" name="pw" placeholder="비밀번호 입력하세요." />
+        </div>
+        <div class="member">
+            <label for="name"></label>
+            <input id="name" name="name" placeholder="이름 입력하세요." />
+        </div>
+        <div class="member">
+            <button id="join">회원가입</button>
+        </div>
+
+    </div>
+
+    <script>
+        let memberList = document.querySelectorAll('.member');
+
+        for(let i=0; i<memberList.length; i++){
+            memberList[i].addEventListener("change", function(){
+                memberList[i+1].classList.add('show');
+            })
+        }
+
+        document.querySelector('#join').addEventListener('click', ()=>{
+            save();
+        });
+
+        function save() {
+            let data = {
+                userid : document.querySelector('#id').value,
+                userPw : document.querySelector('#pw').value,
+                username : document.querySelector('#name').value
+            }
+
+            // console.log(data);
+
+            fetch('/insert', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data)
+            })
+                .then((res) => res.text())
+                .then((result) => {
+                    alert('회원가입이 완료되었어요.');
+                    window.location.href='http://localhost:8080/user';
+                });
+        }
+
+
+    </script>
 </body>
 </html>
