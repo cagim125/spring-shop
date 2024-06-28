@@ -18,12 +18,14 @@ public class Item {
     private Long id;
     private String title;
     private Integer price;
+    private String imgUrl;
 
 
-    public Item(Long id, String title, Integer price ) {
+    public Item(Long id, String title, Integer price) {
         this.id = id;
         this.title = title;
         this.price = price;
+        this.imgUrl = imgUrl;
     }
 
 

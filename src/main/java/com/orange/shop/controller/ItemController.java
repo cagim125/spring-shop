@@ -9,6 +9,9 @@ import com.orange.shop.repository.NoticeRepository;
 import com.orange.shop.service.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,30 +21,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.*;
 
 @Controller
+@RequiredArgsConstructor
 public class ItemController {
 
     private final ItemService itemService;
     private final NoticeRepository noticeRepository;
+    private final ItemRepository itemRepository;
+    private final S3Service s3Service;
 
-    @Autowired
-    public ItemController(ItemService itemService, NoticeRepository noticeRepository) {
-        this.itemService = itemService;
-        this.noticeRepository = noticeRepository;
-    }
+//    @Autowired
+//    public ItemController(ItemService itemService, NoticeRepository noticeRepository, ItemRepository itemRepository) {
+//        this.itemService = itemService;
+//        this.noticeRepository = noticeRepository;
+//        this.itemRepository = itemRepository;
+//    }
 
     @GetMapping("/")
     public String index(Model model) {
-        return "redirect:/list";
+        return "redirect:/list/page/1";
     }
 
 
-    @GetMapping("/list")
-    public String list(Model model) {
-        List<Item> result = itemService.findAll();
-        model.addAttribute("items", result);
-
-        return "list.html";
-    }
+//    @GetMapping("/list")
+//    public String list(Model model) {
+//        List<Item> result = itemService.findAll();
+//        System.out.println(result);
+//        model.addAttribute("items", result);
+//
+//        return "list.html";
+//    }
 
     @GetMapping("/write")
     public String write() {
@@ -86,8 +94,8 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public String add(String title, Integer price) {
-        itemService.saveItem(title, price);
+    public String add(String title, Integer price, String imageUrl ) {
+        itemService.saveItem(title, price ,imageUrl);
         return "redirect:/list";
     }
 
@@ -107,6 +115,22 @@ public class ItemController {
         return "notice.html";
     }
 
+    @GetMapping("/list/page/{number}")
+    public String PageList(@PathVariable Integer number, Model model) {
+        Page<Item> result = itemRepository.findPageBy(PageRequest.of(number - 1, 6));
+        model.addAttribute("totalPage", result.getTotalPages());
+        model.addAttribute("items", result);
+
+        return "list";
+    }
+
+    @GetMapping("/prisigned-url")
+    @ResponseBody
+    public String getURL(@RequestParam String filename) {
+        var result = s3Service.createPresignedUrl("test/" + filename);
+        System.out.println(result);
+        return result;
+    }
 
 //    @GetMapping("/user")
 //    @ResponseBody

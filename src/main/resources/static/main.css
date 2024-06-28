@@ -18,6 +18,8 @@
     color: dimgrey;
 }
 .card img {
+    width: 350px;
+    object-fit: cover;
     margin-right: 20px;
 }
 .nav {
@@ -182,3 +184,15 @@
     list-style: none;
     text-decoration: none;
 }
+
+.paging {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.paging a {
+    color: #04AA6D;
+    text-decoration: none;
+    padding: 10px;
+}
+

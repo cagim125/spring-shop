@@ -1,7 +1,6 @@
 package com.orange.shop.member;
 
 import com.orange.shop.exception.AuthenticationException;
-import com.orange.shop.exception.TitleTooLongException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -9,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 import java.util.Map;
@@ -55,8 +55,6 @@ public class MemberController {
 
     }
 
-
-
     @GetMapping("/user")
     public String userPage(Model model) {
         List<Member> result = memberService.getMember();
@@ -64,5 +62,25 @@ public class MemberController {
         model.addAttribute("members", result);
 
         return "member/user";
+    }
+
+    @GetMapping("/user/1")
+    @ResponseBody
+    public MemberDto getUser() {
+        var a = memberRepository.findById(1L);
+        var result = a.get();
+        MemberDto memberDto = new MemberDto(result.getDisplayName(), result.getId());
+
+        return memberDto;
+    }
+}
+
+class MemberDto {
+    public String displayName;
+    public Long id;
+
+    MemberDto(String displayName, Long id) {
+        this.displayName = displayName;
+        this.id = id;
     }
 }

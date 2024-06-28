@@ -26,10 +26,11 @@ public class ItemService {
         itemRepository.save(item);
     }
 
-    public void saveItem(String title, Integer price) {
+    public void saveItem(String title, Integer price, String imgUrl) {
         Item item = new Item();
         item.setTitle(title);
         item.setPrice(price);
+        item.setImgUrl(imgUrl);
         itemRepository.save(item);
     }
 
