@@ -7,6 +7,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/main.css">
     <title>상품 리스트</title>
+    <script>
+        function addToCart(itemId) {
+            fetch('/cart/add/' + itemId, {
+                method : 'POST'
+            })
+                .then(res => res.text())
+                .then(response => {
+                    if(response === "success"){
+                        alert('상품을 추가 했습니다.');
+                    } else {
+                        alert('품절 입니다.')
+                    }
+                })
+                .catch(error => {
+                    console.log('Network error', error);
+                })
+        }
+    </script>
 </head>
 <body>
 
@@ -25,9 +43,10 @@
             .then(r => r.text())
             .then(result => {
                 console.log(result);
-<!--                location.reload();-->
+                location.reload();
              })
         ">🗑️</span>
+        <span th:onclick="'addToCart('+ ${item.id} + ')'">➕</span>
     </div>
 </div>
 

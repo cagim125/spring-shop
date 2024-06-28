@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap');
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
+
 .container{
     display: flex;
     flex-wrap: wrap;
@@ -78,6 +83,7 @@
 }
 
 .formWrap {
+    margin: 0 auto;
     width: 500px;
     border-radius: 4px;
     background-color: #f2f2f2;
@@ -144,4 +150,35 @@
 
 .show {
     visibility: visible;
+}
+
+.loginForm input{
+    padding: 10px;
+    width: 300px;
+    margin-bottom: 5px;
+}
+
+.login-btn{
+    padding: 10px;
+    background: black;
+    border-radius: 5px;
+    border: none;
+    color: white;
+}
+
+.login-btn:hover{
+    background: #04AA6D;
+    transform: scale(95%);
+}
+
+.nav-list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-list a{
+    color: #45a049;
+    list-style: none;
+    text-decoration: none;
 }

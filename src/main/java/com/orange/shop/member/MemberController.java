@@ -1,5 +1,7 @@
 package com.orange.shop.member;
 
+import com.orange.shop.exception.AuthenticationException;
+import com.orange.shop.exception.TitleTooLongException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -41,12 +43,16 @@ public class MemberController {
     }
 
     @GetMapping("/my-page")
-    public String myPage(Authentication auth) {
-        System.out.println(auth);
+    public String myPage(Authentication auth, Model model) {
         System.out.println(auth.isAuthenticated());
+        if(auth.getName() == null ){
+            throw new AuthenticationException("로그인 해주세요.");
 
+        } else {
+            model.addAttribute("member", auth.getName());
+            return "member/my-page";
+        }
 
-        return "member/my-page";
     }
 
 

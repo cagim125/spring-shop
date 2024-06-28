@@ -29,6 +29,12 @@ public class ItemController {
         this.noticeRepository = noticeRepository;
     }
 
+    @GetMapping("/")
+    public String index(Model model) {
+        return "redirect:/list";
+    }
+
+
     @GetMapping("/list")
     public String list(Model model) {
         List<Item> result = itemService.findAll();

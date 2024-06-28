@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>장바구니</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+<div th:replace="~{ nav.html::navbar }"></div>
+<!--<h3 th:text="${carts[0].getUser()} +'의 장바구니 페이지임'">장바구니 페이지임</h3>-->
+
+    <table class="table">
+        <thead>
+            <tr>
+                <td>번호</td>
+                <td>상품명</td>
+                <td>가격</td>
+                <td>수량</td>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cart:${carts}">
+            <td th:text="${cart.id}"></td>
+            <td th:text="${cart.title}"></td>
+            <td th:text="${cart.price}"></td>
+            <td th:text="${cart.count}"></td>
+        </tr>
+        </tbody>
+
+    </table>
+</body>
+</html>

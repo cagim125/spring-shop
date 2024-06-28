@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.naming.AuthenticationException;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -22,6 +24,21 @@ public class GlobalExceptionHandler {
         model.addAttribute("error", ex.getMessage());
         return "error";
     }
+
+    @ExceptionHandler(AuthenticationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleAuthenticationException(AuthenticationException ex, Model model) {
+        model.addAttribute("error", ex.getMessage());
+        return "error";
+    }
+
+    @ExceptionHandler(NullPointerException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public String handleNullPointerException(NullPointerException ex, Model model) {
+        model.addAttribute("error", ex.getMessage());
+        return "error";
+    }
+
 
     @ExceptionHandler(NegativePriceException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
