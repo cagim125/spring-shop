@@ -1,6 +1,5 @@
-package com.orange.shop.repository;
+package com.orange.shop.item;
 
-import com.orange.shop.entity.Item;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

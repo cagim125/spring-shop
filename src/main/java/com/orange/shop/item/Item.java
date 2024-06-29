@@ -1,11 +1,10 @@
-package com.orange.shop.entity;
+package com.orange.shop.item;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.stereotype.Controller;
 
 @Getter
 @Setter

@@ -1,7 +1,7 @@
 package com.orange.shop.cart;
 
 
-import com.orange.shop.entity.Item;
+import com.orange.shop.item.Item;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

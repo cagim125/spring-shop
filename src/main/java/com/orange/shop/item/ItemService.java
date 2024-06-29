@@ -1,8 +1,6 @@
-package com.orange.shop.service;
+package com.orange.shop.item;
 
 
-import com.orange.shop.entity.Item;
-import com.orange.shop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

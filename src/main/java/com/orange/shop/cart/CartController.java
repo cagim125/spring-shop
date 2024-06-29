@@ -1,8 +1,7 @@
 package com.orange.shop.cart;
 
 
-import com.orange.shop.repository.ItemRepository;
-import com.orange.shop.service.ItemService;
+import com.orange.shop.item.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;

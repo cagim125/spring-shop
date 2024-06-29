@@ -1,18 +1,12 @@
-package com.orange.shop.controller;
+package com.orange.shop.item;
 
-import com.orange.shop.entity.Item;
+import com.orange.shop.config.S3Service;
 import com.orange.shop.entity.Notice;
-import com.orange.shop.entity.User;
 import com.orange.shop.exception.TitleTooLongException;
-import com.orange.shop.repository.ItemRepository;
 import com.orange.shop.repository.NoticeRepository;
-import com.orange.shop.service.ItemService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

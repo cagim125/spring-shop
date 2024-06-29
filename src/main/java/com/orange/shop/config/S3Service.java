@@ -1,4 +1,4 @@
-package com.orange.shop.controller;
+package com.orange.shop.config;
 
 import lombok.RequiredArgsConstructor;
 
