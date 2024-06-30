@@ -17,7 +17,7 @@ public class S3Service {
     private String bucket;
     private final S3Presigner s3Presigner;
 
-    String createPresignedUrl(String path) {
+    public String createPresignedUrl(String path) {
         var putObjectRequest = PutObjectRequest.builder()
                 .bucket(bucket)
                 .key(path)

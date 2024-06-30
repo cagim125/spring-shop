@@ -1,5 +1,6 @@
 package com.orange.shop.item;
 
+import com.orange.shop.comment.CommentRepository;
 import com.orange.shop.config.S3Service;
 import com.orange.shop.entity.Notice;
 import com.orange.shop.exception.TitleTooLongException;
@@ -22,13 +23,8 @@ public class ItemController {
     private final NoticeRepository noticeRepository;
     private final ItemRepository itemRepository;
     private final S3Service s3Service;
+    private final CommentRepository commentRepository;
 
-//    @Autowired
-//    public ItemController(ItemService itemService, NoticeRepository noticeRepository, ItemRepository itemRepository) {
-//        this.itemService = itemService;
-//        this.noticeRepository = noticeRepository;
-//        this.itemRepository = itemRepository;
-//    }
 
     @GetMapping("/")
     public String index(Model model) {
@@ -36,14 +32,10 @@ public class ItemController {
     }
 
 
-//    @GetMapping("/list")
-//    public String list(Model model) {
-//        List<Item> result = itemService.findAll();
-//        System.out.println(result);
-//        model.addAttribute("items", result);
-//
-//        return "list.html";
-//    }
+    @GetMapping("/list")
+    public String list(Model model) {
+        return "redirect:/list/page/1";
+    }
 
     @GetMapping("/write")
     public String write() {
@@ -78,6 +70,8 @@ public class ItemController {
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable Long id, Model model) {
         Optional<Item> result = itemService.findById(id);
+        var cartItem = commentRepository.findAllByParentId(id);
+        System.out.println();
         if (result.isPresent()) {
             model.addAttribute("item", result.get());
         } else {
