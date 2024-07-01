@@ -196,3 +196,15 @@
     padding: 10px;
 }
 
+.comment {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+.comment_content{
+    display: flex;
+    gap: 20px;
+}
+

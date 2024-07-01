@@ -34,7 +34,9 @@ public class ItemController {
 
     @GetMapping("/list")
     public String list(Model model) {
-        return "redirect:/list/page/1";
+        var reulst = itemService.findAll();
+        model.addAttribute("items", reulst);
+        return "list";
     }
 
     @GetMapping("/write")
@@ -70,10 +72,11 @@ public class ItemController {
     @GetMapping("/detail/{id}")
     public String detail(@PathVariable Long id, Model model) {
         Optional<Item> result = itemService.findById(id);
-        var cartItem = commentRepository.findAllByParentId(id);
-        System.out.println();
+        var comments = commentRepository.findAllByParentId(id);
+
         if (result.isPresent()) {
             model.addAttribute("item", result.get());
+            model.addAttribute("comments", comments);
         } else {
             return "redirect:/list";
         }
@@ -118,6 +121,14 @@ public class ItemController {
         var result = s3Service.createPresignedUrl("test/" + filename);
         System.out.println(result);
         return result;
+    }
+
+    @PostMapping("/search")
+    public String postSearch(@RequestParam String searchText, Model model) {
+        var result = itemRepository.rawQuery1(searchText);
+        System.out.println(result);
+        model.addAttribute("items", result);
+        return "list";
     }
 
 //    @GetMapping("/user")

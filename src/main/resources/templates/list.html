@@ -29,6 +29,10 @@
 <body>
 
 <div th:replace="~{ nav.html::navbar }"></div>
+<form action="/search" method="POST">
+    <input name="searchText">
+    <button>검색</button>
+</form>
 <div class="container">
     <div class="card" th:each="item, itemStat:${items}">
         <a th:href="@{/detail/{id}(id=${item.id})}">
@@ -54,9 +58,8 @@
         <span th:onclick="'addToCart('+ ${item.id} + ')'">➕</span>
     </div>
 </div>
-<div class="paging">
+<div th:if="${totalPage != null}" class="paging">
     <a th:each="page:${#numbers.sequence(1,totalPage)}" th:href="@{'/list/page/' + ${page}}" th:text="${page}"></a>
 </div>
-
 </body>
 </html>

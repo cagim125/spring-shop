@@ -11,6 +11,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @Entity
+@Table(indexes = @Index(columnList = "title", name = "작명"))
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
