@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface SaleRepository extends JpaRepository<Sales, Long> {
     Optional<Sales> findByItemName(String title);
+    List<Sales> findAllByItemName(String title);
     Optional<Sales> findByMemberId(Long id);
     List<Sales> findAllByMemberId(Long id);
 }

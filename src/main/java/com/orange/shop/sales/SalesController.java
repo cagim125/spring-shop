@@ -8,9 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -21,35 +24,41 @@ public class SalesController {
 
     @PostMapping("/sales/{id}")
     public ResponseEntity<String> sales(@PathVariable Long id, Authentication auth) {
-        CustomUser user = (CustomUser) auth.getPrincipal();
-//        System.out.println(user.id);
-        if(auth == null || auth.getPrincipal() == null) {
+        if (auth == null || auth.getPrincipal() == null) {
             return ResponseEntity.status(401).body("Unauthorized");
-        } else {
-            var item = itemRepository.findById(id).get();
-            System.out.println(item);
-            var member = memberRepository.findByDisplayName(auth.getName()).get();
-            System.out.println(member);
-            var result_title = saleRepository.findByItemName(item.getTitle());
-
-            if(result_title.isPresent()) {
-                var result = result_title.get();
-                if(result.getMemberId() == member.getId()) {
-                    var count = result.getCount();
-                    result.setCount(count + 1);
-                    saleRepository.save(result);
-                    return ResponseEntity.status(200).body("장바구니이미있음");
-                } else {
-                    Sales sales = new Sales(item, member.getId());
-                    saleRepository.save(sales);
-                }
-            } else {
-                Sales sales = new Sales(item, member.getId());
-                saleRepository.save(sales);
-
-            }
         }
-        return ResponseEntity.status(200).body("success");
+
+        CustomUser user = (CustomUser) auth.getPrincipal();
+        Long userId = user.id;
+        var item = itemRepository.findById(id).orElse(null);
+
+        if (item == null) {
+            return ResponseEntity.status(404).body("Item not found");
+        }
+
+        var resultTitleList = saleRepository.findAllByItemName(item.getTitle());
+        var resultOptional = resultTitleList.stream()
+                .filter(s -> s.getMember().getId().equals(userId))
+                .findFirst();
+        if (resultOptional.isPresent()) {
+            Sales result = resultOptional.get();
+            var count = result.getCount();
+            result.setCount(count + 1);
+            saleRepository.save(result);
+            return ResponseEntity.status(200).body("Item already in cart, count updated");
+        } else {
+            Sales sales = new Sales(item, userId);
+            saleRepository.save(sales);
+            return ResponseEntity.status(200).body("Item added to cart");
+        }
+
+    }
+
+    @GetMapping("/sales/all")
+    public String getSalesAll() {
+        List<Sales> result = saleRepository.findAll();
+        System.out.println(result.get(0));
+        return "list";
     }
 }
 

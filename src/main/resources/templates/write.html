@@ -7,6 +7,16 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/main.css">
     <title>상품 리스트</title>
+    <script>
+        window.onload = function() {
+            fetch('/varify').then((res)=> res.text()).then(response => {
+                if(response == "Unauthorized") {
+                    alert("관리자만 글작성 가능");
+                    location.href = '/list'
+                }
+            })
+        }
+    </script>
 </head>
 <body>
 

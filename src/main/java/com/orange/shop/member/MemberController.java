@@ -4,6 +4,7 @@ import com.orange.shop.exception.AuthenticationException;
 import com.orange.shop.sales.SaleRepository;
 import com.orange.shop.sales.Sales;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,6 +24,20 @@ public class MemberController {
     private final MemberRepository memberRepository;
     private final SaleRepository saleRepository;
 
+
+    @GetMapping("/varify")
+    public ResponseEntity<String> varify(Authentication auth) {
+        CustomUser result = (CustomUser) auth.getPrincipal();
+        System.out.println(result.getUsername());
+
+        if(result.getUsername() == "admin") {
+            return ResponseEntity.status(200).body("authorized");
+        } else {
+            return ResponseEntity.status(401).body("Unauthorized");
+        }
+
+
+    }
 
     @GetMapping("/member")
     public String memberPage() {

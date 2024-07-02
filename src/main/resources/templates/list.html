@@ -10,33 +10,33 @@
     <script>
         function addToSales(itemId) {
             fetch('/sales/' + itemId, {
-                method : 'POST'
+                method: 'POST'
             })
                 .then(res => res.text())
                 .then(response => {
-                    if(response === "success"){
-                        alert('상품을 추가 했습니다.');
-                    } else if(response === "Unauthorized") {
-                        alert('로그인 해주세요..')
+                    if (response === "Unauthorized") {
+                        alert('로그인 해주세요..');
                         location.href = '/login'
-                    } else if(response === "장바구니이미있음") {
-                        alert('이미 추가된 상품입니다.')
+                    } else {
+                        alert(response);
                     }
+
                 })
                 .catch(error => {
                     console.log('Network error', error);
                 })
         }
+
         function removeToItem(itemId) {
             fetch('/delete/' + itemId, {
-                method : 'DELETE'
+                method: 'DELETE'
             })
                 .then(res => res.text())
                 .then(response => {
-                    if(response === "삭제완료"){
+                    if (response === "삭제완료") {
                         alert('상품을 삭제 했습니다.');
                         location.reload()
-                    } else if(response === "일반유저") {
+                    } else if (response === "일반유저") {
                         alert("삭제는 관리자만 가능합니다.")
                     }
                 })

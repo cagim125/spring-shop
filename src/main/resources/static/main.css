@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;800&display=swap');
+
 *{
     margin: 0;
     box-sizing: border-box;
@@ -184,7 +185,6 @@
 }
 
 .nav-list a{
-    color: #45a049;
     list-style: none;
     text-decoration: none;
 }
@@ -218,3 +218,7 @@
     cursor: pointer;
 }
 
+.disabled{
+    pointer-events: none;
+    color: slategray;
+}

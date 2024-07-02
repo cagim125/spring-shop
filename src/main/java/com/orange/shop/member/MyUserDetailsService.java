@@ -28,6 +28,7 @@ public class MyUserDetailsService implements UserDetailsService {
         }
         var user = member.get();
         List<GrantedAuthority> authorities = new ArrayList<>();
+        System.out.println(user.getDisplayName());
         if(user.getDisplayName() == "admin") {
             authorities.add(new SimpleGrantedAuthority("관리자"));
         } else {
