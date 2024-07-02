@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -34,8 +35,8 @@ public class ItemController {
 
     @GetMapping("/list")
     public String list(Model model) {
-        var reulst = itemService.findAll();
-        model.addAttribute("items", reulst);
+        var result = itemService.findAll();
+        model.addAttribute("items", result);
         return "list";
     }
 
@@ -90,11 +91,16 @@ public class ItemController {
         return "redirect:/list";
     }
 
-    @DeleteMapping("/item")
-    public ResponseEntity<String> delete(@RequestParam Long id) {
-        itemService.deleteItem(id);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> delete(@PathVariable Long id , Authentication auth) {
+        if (auth.getAuthorities().toString() == "관리자") {
+            itemService.deleteItem(id);
+            return ResponseEntity.status(200).body("삭제완료");
 
-        return ResponseEntity.status(200).body("삭제완료");
+        } else {
+            return ResponseEntity.status(200).body("일반유저");
+        }
+
     }
 
 

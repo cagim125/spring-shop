@@ -28,9 +28,14 @@ public class MyUserDetailsService implements UserDetailsService {
         }
         var user = member.get();
         List<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority("일반유저"));
-
-        return new User(user.getDisplayName(), user.getPassword(), authorities);
+        if(user.getDisplayName() == "admin") {
+            authorities.add(new SimpleGrantedAuthority("관리자"));
+        } else {
+            authorities.add(new SimpleGrantedAuthority("일반유저"));
+        }
+        var a = new CustomUser(user.getDisplayName(), user.getPassword(), authorities);
+        a.id = user.getId();
+        return a;
     }
 }
 

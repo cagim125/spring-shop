@@ -6,15 +6,40 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
+<div th:replace="~{ nav.html::navbar }"></div>
 <div th:if="${param.error}">
     <h4>로그인 먼저 하셈.</h4>
 </div>
-<div th:replace="~{ nav.html::navbar }"></div>
-<h4 th:text="${member} + '님의 마이페이지 입니다.'"></h4>
-<div sec:authentication="principal"></div>
-<div sec:authentication="principal.username"></div>
 <div sec:authorize="hasAuthority('일반유저')">
-    <h4>이 유저는 일반유저 권한임</h4>
+    <h4 th:text="'[일반유저] ' + ${member} + '님의 마이페이지 입니다.'"></h4>
 </div>
+
+<div sec:authorize="hasAuthority('관리자')">
+    <h4 th:text="'[관리자] ' + ${member} + '님의 마이페이지 입니다.'"></h4>
+</div>
+
+<div>
+    <table class="table">
+        <thead>
+        <tr>
+            <td>상품명</td>
+            <td>가격</td>
+            <td>갯수</td>
+            <td>총가격</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="sale : ${sales}">
+            <td th:text="${sale.itemName}">1</td>
+            <td th:text="${sale.price}">이벤트제목</td>
+            <td> <input style="width: 100px; text-align: center" type="number" th:value="${sale.count}"> </td>
+            <td th:text="${sale.price * sale.count}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
 </body>
 </html>

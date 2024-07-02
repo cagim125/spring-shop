@@ -56,9 +56,13 @@
 .table thead {
     padding-top: 12px;
     padding-bottom: 12px;
-    text-align: left;
+    text-align: center;
     background-color: #04AA6D;
     color: white;
+}
+.table td {
+    width: 250px;
+    text-align: center;
 }
 
 #title, #price {
@@ -206,5 +210,11 @@
 .comment_content{
     display: flex;
     gap: 20px;
+}
+
+.icon{
+    margin-right: 10px;
+    font-size: 24px;
+    cursor: pointer;
 }
 

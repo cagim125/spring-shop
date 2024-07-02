@@ -1,6 +1,8 @@
 package com.orange.shop.member;
 
 import com.orange.shop.exception.AuthenticationException;
+import com.orange.shop.sales.SaleRepository;
+import com.orange.shop.sales.Sales;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -19,6 +21,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MemberRepository memberRepository;
+    private final SaleRepository saleRepository;
 
 
     @GetMapping("/member")
@@ -44,12 +47,16 @@ public class MemberController {
 
     @GetMapping("/my-page")
     public String myPage(Authentication auth, Model model) {
-        System.out.println(auth.isAuthenticated());
+
         if(auth.getName() == null ){
             throw new AuthenticationException("로그인 해주세요.");
-
         } else {
+            var result = memberRepository.findByDisplayName(auth.getName()).get();
+            List<Sales> sales = saleRepository.findAllByMemberId(result.getId());
+
+            model.addAttribute("sales", sales);
             model.addAttribute("member", auth.getName());
+
             return "member/my-page";
         }
 
